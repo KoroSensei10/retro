@@ -6,7 +6,12 @@ export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 
 	theme: {
-		extend: {}
+		extend: {
+			fontFamily: {
+				comic: ['Comic Sans MS', 'Comic Sans', 'cursive'],
+				times: ['Times New Roman', 'Times', 'serif']
+			}
+		}
 	},
 
 	plugins: [typography, forms]
