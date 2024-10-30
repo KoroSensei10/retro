@@ -4,11 +4,12 @@ import type { Config } from 'tailwindcss';
 
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
+	darkMode: 'class',
 
 	theme: {
 		extend: {
 			fontFamily: {
-				comic: ['Comic Sans MS', 'Comic Sans', 'cursive'],
+				comic: ['Comic Sans MS', 'Comic Sans', 'serif'],
 				times: ['Times New Roman', 'Times', 'serif']
 			}
 		}

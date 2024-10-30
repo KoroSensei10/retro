@@ -22,20 +22,19 @@
 	});
 
 	type NBRTLSM_DarkToggleProps = {
-		title?: never;
 		class?: string;
 	} & HTMLButtonAttributes;
 
 	let { class: className, ...rest }: NBRTLSM_DarkToggleProps = $props();
 </script>
 
-<OldButton title="" onclick={toggleDark} type="button" class={className} {...rest}>
+<OldButton onclick={toggleDark} type="button" class={className} {...rest}>
 	{#key dark}
 		<div in:fade={{ duration: 200 }} class="flex w-full justify-center">
 			{#if dark}
-				<MoonStar stroke="2.5" color="blue" />
+				<MoonStar stroke="2.5" color="black" />
 			{:else}
-				<Sun stroke="2.5" color="yellow" />
+				<Sun stroke="2.5" color="white" />
 			{/if}
 		</div>
 	{/key}
