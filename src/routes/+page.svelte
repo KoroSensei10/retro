@@ -40,19 +40,23 @@
 		</cite>
 	</blockquote>
 	<div class="text-justify indent-8">
-		Bienvenue sur le Wiki de <span class=" font-bold">Legend of Kingdom 2 !</span> Découvrez ce jeu
-		de point & click étonnant qui a surgi de nulle part, créé par une équipe de développeurs
-		mystérieux. Plongez dans un monde captivant rempli d'énigmes, d'aventures et de découvertes
-		inattendues. Trouvez ici des guides pratiques, des astuces et des infos sur les personnages et
-		lieux. Que vous soyez un joueur chevronné ou novice, préparez-vous à explorer un univers
-		fascinant ! N'hésitez pas à commenter ou ajouter des articles pour faire partie de la communauté
-		! <OldLink href="/discover">Découvrir</OldLink>
+		Bienvenue sur le Wiki de <span class=" font-bold">Legend of Kingdom 2 !</span> Découvrez ce jeu de
+		point & click étonnant qui a surgi de nulle part, créé par une équipe de développeurs mystérieux.
+		Plongez dans un monde captivant rempli d'énigmes, d'aventures et de découvertes inattendues. Trouvez
+		ici des guides pratiques, des astuces et des infos sur les personnages et lieux. Que vous soyez un
+		joueur chevronné ou novice, préparez-vous à explorer un univers fascinant ! N'hésitez pas à commenter
+		ou ajouter des articles pour faire partie de la communauté !
 	</div>
 	<div class=" self-center">
 		<a href="/discover">
-			<OldButton type="button" class="px-4 py-2">Découvrir</OldButton>
+			<OldButton type="button" class="w-20 px-4 py-2">Découvrir</OldButton>
 		</a>
 	</div>
+
+	<div class="blink self-center">
+		Télécharger le jeu : <OldLink target="blank" href="/download">Download</OldLink>
+	</div>
+
 	{#each headingsStore.headings as heading, i (heading)}
 		<div class="w-full">
 			<h2 id={heading} class="w-full text-left text-2xl font-bold">{heading}</h2>
@@ -64,3 +68,15 @@
 		</div>
 	{/each}
 </div>
+
+<style>
+	@keyframes blink {
+		50% {
+			opacity: 0;
+		}
+	}
+
+	.blink {
+		animation: blink 1s steps(1, start) infinite;
+	}
+</style>

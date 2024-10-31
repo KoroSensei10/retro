@@ -1,23 +1,41 @@
 <script lang="ts">
 	import '../app.css';
+	import { fade, fly } from 'svelte/transition';
+	import { Lock, LockOpen } from 'lucide-svelte';
 	import DarkToggle from '../components/DarkToggle.svelte';
 	import OldButton from '../components/OldButton.svelte';
-	import pierre from '../lib/assets/pierre_magique.png';
 	import { headingsStore } from '../stores/headings/index.svelte';
-	import { fade } from 'svelte/transition';
+	import pierre from '../lib/assets/pierre_magique.png';
+	import { userStore } from '../stores/auth/index.svelte';
 
 	let { children } = $props();
 </script>
 
 <div
-	class="grid h-svh grid-rows-[auto_1fr] font-comic tracking-wide text-black antialiased dark:text-gray-100"
+	class="grid h-svh grid-rows-[auto_1fr] font-comic tracking-wide text-black antialiased dark:text-gray-100 max-sm:text-lg"
 >
 	<nav class=" sticky flex h-20 items-center justify-between bg-red-500 dark:bg-red-800">
 		<a href="/" class="flex w-60 items-center justify-center">
 			<img class="h-20" src={pierre} alt="la pierre magique" />
 		</a>
 		<div class=" w-auto text-start text-3xl font-bold">Legend of Kingdom 2 Wiki</div>
-		<DarkToggle class="mr-2 h-10 w-10"></DarkToggle>
+		<div class=" flex gap-2">
+			<a href="/admin">
+				<OldButton class=" flex h-10 items-center justify-center p-2">
+					admin
+					{#key userStore.user}
+						<div in:fly={{ y: -20 }}>
+							{#if userStore.user}
+								<LockOpen class="ml-2" strokeWidth="2.5" />
+							{:else}
+								<Lock class="ml-2" strokeWidth="2.5" />
+							{/if}
+						</div>
+					{/key}
+				</OldButton>
+			</a>
+			<DarkToggle class="mr-2 h-10 w-10"></DarkToggle>
+		</div>
 	</nav>
 	<main class="grid h-full grid-cols-[auto_1fr] overflow-hidden">
 		<aside
@@ -58,15 +76,3 @@
 		</div>
 	</main>
 </div>
-
-<style>
-	@keyframes blink {
-		50% {
-			opacity: 0;
-		}
-	}
-
-	.blink {
-		animation: blink 1s steps(1, start) infinite;
-	}
-</style>
