@@ -18,5 +18,3 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig, 'lok2-wiki');
 export const db = getFirestore(app);
 export const auth = getAuth(app);
-
-const querySnapshot = await getDocs(collection(db, 'users'));
