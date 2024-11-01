@@ -57,3 +57,12 @@
 >
 	Se deconnecter
 </OldButton>
+
+{#if userStore.user}
+	<div class="flex w-full flex-col items-center gap-2 text-center">
+		<div class="text-center">Connecté en tant que {userStore.user.email}</div>
+		<a href="/admin/editPage">
+			<OldButton type="button" class="bg-blue-500 px-4 py-2">Editer ou créer une page</OldButton>
+		</a>
+	</div>
+{/if}
