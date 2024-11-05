@@ -2,17 +2,28 @@
 	import loginWithEmailAndPassword, { disconnect } from '$lib/firebase/login';
 	import OldButton from '../../components/OldButton.svelte';
 	import { userStore } from '../../stores/auth/index.svelte';
+	import { addToast } from '../../stores/toasts.svelte';
 
 	let email = $state('');
 	let password = $state('');
 
-	function submit(e: SubmitEvent) {
+	async function submit(e: SubmitEvent) {
 		e.preventDefault();
 		try {
 			// sendMagicLink(email);
-			loginWithEmailAndPassword(email, password);
+			await loginWithEmailAndPassword(email, password);
+			addToast({
+				title: 'Connexion réussie',
+				message: 'Vous êtes maintenant connecté',
+				timeoutInMs: 3000
+			});
 		} catch (error) {
 			console.error(error);
+			addToast({
+				title: 'Erreur de connexion',
+				message: 'Vérifiez vos identifiants',
+				timeoutInMs: 3000
+			});
 		}
 	}
 </script>

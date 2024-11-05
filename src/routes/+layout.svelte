@@ -10,11 +10,14 @@
 	import Headings from '../components/Headings.svelte';
 	import PageSearch from '../components/PageSearch.svelte';
 	import type { SvelteComponent } from 'svelte';
+	import Toaster from '../components/Toaster.svelte';
 
 	let { children } = $props();
 
 	let pageSearch: SvelteComponent | undefined = $state(undefined);
 </script>
+
+<Toaster></Toaster>
 
 <div
 	class="relative grid h-svh grid-rows-[auto_1fr] font-comic tracking-wide text-black antialiased dark:text-gray-100 max-sm:text-lg"
@@ -22,7 +25,7 @@
 	<PageSearch bind:this={pageSearch} />
 	<nav class=" sticky flex h-20 items-center justify-between bg-red-500 dark:bg-red-800">
 		<a href="/" class="flex w-60 items-center justify-center">
-			<img class="h-20" src={pierre} alt="la pierre magique" />
+			<img class="h-20 bg-black" src={pierre} alt="la pierre magique" />
 		</a>
 		<div class=" w-auto text-start text-3xl font-bold">Legend of Kingdom 2 Wiki</div>
 		<div class=" flex gap-2">

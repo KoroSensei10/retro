@@ -2,9 +2,6 @@
 	import { onMount } from 'svelte';
 	import markdownit from 'markdown-it';
 	import { Bold, Heading, Italic, WrapText, Link, Save } from 'lucide-svelte';
-	import hljs from 'highlight.js/lib/core';
-	import mardown from 'highlight.js/lib/languages/markdown';
-	import html from 'highlight.js/lib/languages/xml';
 	import 'highlight.js/styles/github.css';
 
 	import OldButton from '../../../components/OldButton.svelte';
@@ -14,9 +11,7 @@
 	import type { Page } from '../../../types';
 	import { click_outside } from '../../../components/actions.svelte';
 	import Images from '../../../components/Images.svelte';
-
-	hljs.registerLanguage('html', html);
-	hljs.registerLanguage('markdown', mardown);
+	import { addToast } from '../../../stores/toasts.svelte';
 
 	const md = markdownit({
 		html: true,
@@ -40,9 +35,6 @@
 	let textarea: HTMLTextAreaElement;
 	let content = $state('');
 	let title = $state('');
-	let contentHighlight = $derived.by(() => {
-		return hljs.highlightAuto(content, ['markdown', 'html']).value;
-	});
 
 	let slug = $derived.by(() => {
 		return title.toLowerCase().replace(/\s/g, '-');
@@ -146,9 +138,19 @@
 			});
 			// TODO : Add a toast
 			console.log('Document written with slug: ', slug);
+			addToast({
+				title: 'Page enregistrée',
+				message: 'La page ' + slug + ' a bien été enregistrée',
+				timeoutInMs: 3000
+			});
 		} catch (error) {
 			// TODO : Add a toast
 			console.error('Error adding document: ', error);
+			addToast({
+				title: 'Erreur',
+				message: "Une erreur est survenue lors de l'enregistrement de la page",
+				timeoutInMs: 3000
+			});
 		}
 	};
 
@@ -272,15 +274,17 @@
 				{/each}
 			</select>
 			<div class="h-6">
-				{#if title}
+				<!-- {#if title}
 					<div class="">{title}</div>
-				{:else}
-					<input
-						type="text"
-						class="h-6 w-fit border-2 border-gray-100 border-l-black border-t-black bg-gray-300 py-0 text-black dark:text-black"
-						placeholder="Titre"
-					/>
-				{/if}
+				{:else} -->
+				<input
+					type="text"
+					bind:value={title}
+					class="h-6 w-fit border-2 border-gray-100 border-l-black border-t-black bg-gray-300 py-0 text-black dark:text-black"
+					placeholder="Titre"
+				/>
+				<!-- {/if} -->
+				{slug}
 			</div>
 		</div>
 
@@ -290,27 +294,17 @@
 	</div>
 	<!-- Editor -->
 	<div class=" grid max-h-full min-h-full grid-rows-[auto_1fr]">
-		<div class="relative h-full min-h-60 w-full">
+		<div class=" h-full min-h-60 w-full">
 			<textarea
 				bind:this={textarea}
 				name="pageEditor"
 				bind:value={content}
 				id="pageEditor"
-				class="absolute left-0 top-0 h-full w-full border-x-0 border-b bg-inherit p-0 opacity-0 focus-within:ring-0 focus:border-none"
+				class="h-full w-full border-x-0 border-b bg-inherit p-0 focus-within:ring-0 focus:border-none"
 			></textarea>
-			<div
-				class="pointer-events-none absolute left-0 top-0 h-full w-full bg-inherit"
-				style="white-space: pre-wrap; overflow-wrap: break-word;"
-			>
-				{#if contentHighlight}
-					{@html contentHighlight}
-				{:else}
-					{content}
-				{/if}
-			</div>
 		</div>
 		<!-- Preview -->
-		<div class="relative h-full min-h-20 w-full text-wrap break-words border">
+		<div class="relative h-full min-h-20 w-full overflow-y-auto text-wrap break-words border">
 			<div class="html_content">
 				{@html preview}
 			</div>

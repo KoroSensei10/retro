@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { headingsStore } from '../../../stores/headings/index.svelte';
 	import type { PageData } from './$types';
 	import markdownit from 'markdown-it';
 
@@ -11,10 +12,11 @@
 		quotes: '“”‘’'
 	});
 
+	headingsStore.headings =
+		data.pageContent?.body.match(/(?<=^|\n)#+\s.+/g)?.map((h) => h.replace(/#+\s/, '')) || [];
+
 	const renderedMarkdown = md.render(data.pageContent?.body ?? '');
 </script>
-
-{data.slug}
 
 {#if data.pageContent}
 	<div class="html_content">

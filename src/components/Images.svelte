@@ -5,6 +5,7 @@
 	import { onMount } from 'svelte';
 	import { getAllImages, uploadFile } from '$lib/firebase/images';
 	import type { Image } from '../types';
+	import { addToast } from '../stores/toasts.svelte';
 
 	type Props = {
 		textarea: HTMLTextAreaElement;
@@ -39,8 +40,18 @@
 				const downloadURL = await uploadFile(file, filePath);
 				console.log('Fichier uploadé, URL :', downloadURL);
 				images = await getAllImages();
+				addToast({
+					title: 'Image uploadée',
+					message: "L'image a bien été uploadée",
+					timeoutInMs: 3000
+				});
 			} catch (error) {
 				console.error("Erreur lors de l'upload :", error);
+				addToast({
+					title: "Erreur lors de l'upload",
+					message: "Une erreur est survenue lors de l'upload de l'image",
+					timeoutInMs: 3000
+				});
 			}
 		}
 	}

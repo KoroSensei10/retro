@@ -1,6 +1,7 @@
 .html_content :global {
+	@apply flex flex-col items-start gap-4 p-2;
 	h1 {
-		@apply text-4xl font-bold;
+		@apply text-4xl font-bold after:mt-4 after:block after:h-1 after:w-full after:bg-gradient-to-r after:from-gray-400 after:to-transparent after:content-[''];
 	}
 	h2 {
 		@apply text-3xl font-bold;
@@ -18,10 +19,10 @@
 		@apply text-base font-bold;
 	}
 	p {
-		@apply text-base;
+		@apply px-4 text-base;
 	}
 	ul {
-		@apply list-inside list-disc;
+		@apply list-inside list-disc px-4;
 	}
 	ol {
 		@apply list-inside list-decimal;
